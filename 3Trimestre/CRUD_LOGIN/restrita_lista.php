@@ -35,6 +35,7 @@ if(!isset($_SESSION['id'])){
         // Resgata todas as linhas da consulta
         // https://www.php.net/manual/pt_BR/mysqli-result.fetch-all.php
         $livros = $resultado->fetch_all(MYSQLI_ASSOC);
+        //fect all para todos
         echo "<table>";
         echo "<thead>
               <th>Título</th>

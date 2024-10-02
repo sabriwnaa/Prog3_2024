@@ -4,15 +4,18 @@
         
         //Sanitiza as variáveis recebidas
         $email = filter_var($_POST['email'],FILTER_SANITIZE_EMAIL);
+        //existe validate também, para verificar se o email existe
         $senha = htmlspecialchars($_POST['senha']);
-
+        //torna todo caractere especial em código ascci 
+        
         //Conecta com o banco
         $db = new mysqli('localhost','root','','colecao_livros');
         
         //Gera uma variável criptografada
         $password_hash = password_hash($_POST['senha'],PASSWORD_BCRYPT);
-        
-        //Prepara a query
+        //criptografias mais usadas: bcrypy,  argon2I e argon2D
+
+        //Prepara a query, colocando interrogações para preparar e colocar os valores depois
         $stmt = $db->prepare("insert into pessoas (email,senha) values (?,?)");
         
         /* Insere as variáveis de forma segura
@@ -21,7 +24,7 @@
         */
          $stmt->bind_param("ss",$email,$password_hash);
 
-        //Executa
+        //Executa o statement
         $stmt->execute();
 
         //Redireciona
